@@ -34,21 +34,49 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = '2982320284';
+    var serviceWorkerVersion = '3323727156';
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+  <link rel="manifest" href="https://colin-stark.github.io/orcoda_redesign/manifest.json" type="application/json" as="json" crossorigin>
+  <link rel="preload" href="https://colin-stark.github.io/orcoda_redesign/favicon.png" as="fetch" crossorigin>
+  <link rel="preload" href="https://colin-stark.github.io/orcoda_redesign/assets/assets/bobpete.png" as="fetch" crossorigin>
+  <link rel="preload" href="https://colin-stark.github.io/orcoda_redesign/assets/assets/burniebrae.png" as="fetch" crossorigin>
+  <link rel="preload" href="https://colin-stark.github.io/orcoda_redesign/assets/assets/sigmahealthcare.png" as="fetch" crossorigin>
+  <link rel="preload" href="https://colin-stark.github.io/orcoda_redesign/assets/assets/sullivan.png" as="fetch" crossorigin>
+  <link rel="preconnect" href="https://nominatim.openstreetmap.org/reverse?format=json&lat=-37.83766&lon=144.9750104&zoom=18&addressdetails=1">
 </head>
 <body>
+  <div class="loading" id="loading">
+    <style>
+      .loading {
+        position: absolute;
+        top: calc(50% - 100px);
+        left: calc(50% - 100px);
+        width: 200px;
+        height: 200px;
+        border: 5px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 3px solid #1A0741;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0%{transform: rotate(0deg);}
+        100%{transform: rotate(360deg);}
+      }
+    </style>
+  </div>
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
+      let loading = document.querySelector('#loading');
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
         onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
+            loading.remove();
             appRunner.runApp();
           });
         }
